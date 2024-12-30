@@ -1,0 +1,36 @@
+#server:
+#  port: 10021
+
+spring:
+  application:
+    name: springboot-developer
+
+  # H2 Database 설정
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: 'jdbc:h2:mem:test'   # H2 DB 연결 주소 (In-Memory Mode), 휘발성
+    #url: 'jdbc:h2:~/test'    # H2 DB 연결 주소 (Embedded Mode), 비휘발성,
+                              # Embedded 모드를 이용할 땐 H2 DB의 연결 주소와, JPA의 테이블 생성 전략을 'update'로 변경해 주어야 합니다.
+    username: admin        # H2 DB 접속 ID (사용자 지정)
+    password: 1234         # H2 DB 접속 PW (사용자 지정)
+
+  # H2 Console 설정
+  h2:
+   console: # H2 DB를 웹에서 관리할 수 있는 기능
+     enabled: true           # H2 Console 사용 여부
+     path: /h2-console       # H2 Console 접속 주소
+
+  # H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+  # http://localhost:8080/h2-console > JDBC URL > jdbc:h2:mem:testdb
+
+  jpa: # https://congsong.tistory.com/46
+    show-sql: true
+    hibernate:
+      ddl-auto: create # DB 초기화 전략 (none, create, create-drop, update, validate)
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true    # 쿼리 로그 포맷 (정렬)
+        show_sql: true      # 쿼리 로그 출력
+    defer-datasource-initialization: true # 테이블 생성 후에 data.sql 실행
+
